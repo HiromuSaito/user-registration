@@ -16,3 +16,9 @@ uv run python manage.py runserver
 ```
 
 http://127.0.0.1:8000/ で起動します。
+
+## 開発
+
+- リンター: `uv run ruff check .`
+- フォーマット: `uv run ruff format .`
+- CI と同じチェック: `uv run ruff check . && uv run ruff format --check .`
