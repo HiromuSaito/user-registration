@@ -4,7 +4,7 @@
 
 ## 動作環境
 
-- Python 3.14
+- Python 3.10〜3.14（開発には 3.14 を使用）
 - [uv](https://docs.astral.sh/uv/)
 
 ## セットアップ
