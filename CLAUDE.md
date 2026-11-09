@@ -11,5 +11,5 @@
 
 ## コミット
 
-- Conventional Commits の形式にする（feat, fix, test, docs, refactor, chore, ci）。種類は英語、説明は日本語。
+- Conventional Commits の形式にする（feat, fix, test, docs, style, refactor, chore, ci）。種類は英語、説明は日本語。
 - 1 コミットにつき 1 つの目的にする。理由は本文に書く。
