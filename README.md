@@ -21,7 +21,8 @@ http://127.0.0.1:8000/ で起動します。
 
 - リンター: `uv run ruff check .`
 - フォーマット: `uv run ruff format .`
-- CI と同じチェック: `uv run ruff check . && uv run ruff format --check .`
+- テスト: `uv run pytest`
+- CI と同じチェック: `uv run ruff check . && uv run ruff format --check . && uv run pytest`
 
 ## ドキュメント
 
