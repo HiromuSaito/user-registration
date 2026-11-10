@@ -125,7 +125,7 @@ dev = [
 
 [package.metadata]
 requires-dist = [
-    { name = "django", specifier = ">=5.2,<6.0" },
+    { name = "django", specifier = ">=5.2.8,<6.0" },
     { name = "django-environ", specifier = ">=0.14.0" },
 ]
 
