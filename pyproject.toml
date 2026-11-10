@@ -15,6 +15,9 @@ dev = [
 ]
 
 
+[tool.ruff]
+extend-exclude = ["*/migrations/*"]
+
 [tool.ruff.lint]
 select = ["E", "F", "I", "UP", "B", "SIM", "DJ"]
 ignore = ["E501"]
