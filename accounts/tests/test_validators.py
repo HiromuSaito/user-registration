@@ -11,7 +11,6 @@ from accounts.validators import (
 
 
 def error_codes(validator, value):
-    """バリデーターを呼び、出たエラーのコードのリストを返す。通れば空のリスト。"""
     try:
         validator(value)
     except ValidationError as e:
