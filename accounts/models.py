@@ -14,6 +14,9 @@ class UserManager(DjangoUserManager):
             extra_fields["pref_id"] = extra_fields.pop("pref")
         return super().create_superuser(username, email, password, **extra_fields)
 
+    def email_is_registered(self, email):
+        return self.filter(email__iexact=email).exists()
+
 
 class User(AbstractUser):
     email = models.EmailField(max_length=254)
