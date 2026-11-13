@@ -56,6 +56,7 @@ def test_normalize_email_ok(value, expected):
         pytest.param("a..b@example.com", id="consecutive_dots"),
         pytest.param('"john doe"@example.com', id="quoted"),
         pytest.param("user@[192.168.0.1]", id="ip_domain"),
+        pytest.param("ユーザー@example.com", id="non_ascii_local_part"),
     ],
 )
 def test_normalize_email_invalid(value):

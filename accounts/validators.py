@@ -22,7 +22,11 @@ def validate_username(value):
 
 def normalize_email(value):
     try:
-        result = validate_email_format(value, check_deliverability=False)
+        # モデルの EmailField の EmailValidator は @ の前に英数字と一部の記号しか許さないため、
+        # それに合わせて @ の前の英数字以外（国際化メールアドレス）を許さない
+        result = validate_email_format(
+            value, check_deliverability=False, allow_smtputf8=False
+        )
     except EmailNotValidError as e:
         raise ValidationError(
             "メールアドレスの形式が正しくありません。",
