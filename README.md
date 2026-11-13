@@ -12,10 +12,19 @@
 ```bash
 uv sync
 cp .env.example .env
+uv run python manage.py migrate
 uv run python manage.py runserver
 ```
 
 http://127.0.0.1:8000/ で起動します。
+
+## 画面
+
+| URL | 内容 |
+| --- | --- |
+| http://127.0.0.1:8000/signup/ | 登録画面（Django のフォーム） |
+| http://127.0.0.1:8000/signup/complete/ | 登録の完了画面（登録した直後だけ表示される） |
+| http://127.0.0.1:8000/admin/ | 管理画面（`uv run python manage.py createsuperuser` で作った管理者でログインする） |
 
 ## 開発
 
