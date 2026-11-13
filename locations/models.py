@@ -7,6 +7,8 @@ class Pref(models.Model):
 
     class Meta:
         ordering = ["code"]
+        verbose_name = "都道府県"
+        verbose_name_plural = "都道府県"
 
     def __str__(self):
         return self.name
