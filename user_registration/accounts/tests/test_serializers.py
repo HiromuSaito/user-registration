@@ -1,7 +1,7 @@
 import pytest
 
-from accounts.api.serializers import UserCreateSerializer
-from accounts.models import User
+from user_registration.accounts.api.serializers import UserCreateSerializer
+from user_registration.accounts.models import User
 
 
 def request_data(**overrides):

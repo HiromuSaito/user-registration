@@ -4,7 +4,7 @@ import pytest
 from django.db import IntegrityError
 from django.urls import reverse
 
-from accounts.models import User
+from user_registration.accounts.models import User
 
 SIGNUP_URL = reverse("accounts:signup")
 COMPLETE_URL = reverse("accounts:signup_complete")
@@ -48,7 +48,7 @@ def test_invalid_input_shows_errors_without_saving(client):
 def test_integrity_error_is_shown_as_form_error(client):
     # 検証のあと保存までの間に同じメールで登録された状況を、保存時の例外で再現する
     with mock.patch(
-        "accounts.forms.SignupForm.save", side_effect=IntegrityError
+        "user_registration.accounts.forms.SignupForm.save", side_effect=IntegrityError
     ) as save:
         response = client.post(SIGNUP_URL, VALID_DATA)
 

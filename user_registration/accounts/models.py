@@ -4,7 +4,7 @@ from django.contrib.auth.validators import UnicodeUsernameValidator
 from django.db import models
 from django.db.models.functions import Lower
 
-from locations.models import Pref
+from user_registration.locations.models import Pref
 
 from .error_messages import EMAIL_TAKEN
 

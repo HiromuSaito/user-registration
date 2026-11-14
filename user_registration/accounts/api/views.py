@@ -6,7 +6,7 @@ from rest_framework.decorators import api_view
 from rest_framework.response import Response
 from rest_framework.settings import api_settings
 
-from accounts.error_messages import SIGNUP_FAILED
+from user_registration.accounts.error_messages import SIGNUP_FAILED
 
 from .serializers import UserCreateSerializer
 

@@ -5,8 +5,8 @@ from drf_spectacular.views import SpectacularAPIView, SpectacularSwaggerView
 
 urlpatterns = [
     path("admin/", admin.site.urls),
-    path("api/", include("locations.api.urls")),
-    path("api/", include("accounts.api.urls")),
+    path("api/", include("user_registration.locations.api.urls")),
+    path("api/", include("user_registration.accounts.api.urls")),
     path("api/schema/", SpectacularAPIView.as_view(), name="api-schema"),
     path(
         "api/docs/",
@@ -14,5 +14,5 @@ urlpatterns = [
         name="api-docs",
     ),
     path("", RedirectView.as_view(pattern_name="accounts:signup")),
-    path("", include("accounts.urls")),
+    path("", include("user_registration.accounts.urls")),
 ]

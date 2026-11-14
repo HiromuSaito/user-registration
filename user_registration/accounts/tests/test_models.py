@@ -1,6 +1,6 @@
 import pytest
 
-from accounts.models import User
+from user_registration.accounts.models import User
 
 
 @pytest.mark.django_db

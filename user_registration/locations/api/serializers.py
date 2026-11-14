@@ -1,6 +1,6 @@
 from rest_framework import serializers
 
-from locations.models import Pref
+from user_registration.locations.models import Pref
 
 
 class PrefSerializer(serializers.ModelSerializer):

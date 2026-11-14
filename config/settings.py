@@ -47,8 +47,8 @@ INSTALLED_APPS = [
     "django.contrib.staticfiles",
     "rest_framework",
     "drf_spectacular",
-    "locations",
-    "accounts",
+    "user_registration.locations",
+    "user_registration.accounts",
 ]
 
 REST_FRAMEWORK = {
@@ -79,7 +79,7 @@ ROOT_URLCONF = "config.urls"
 TEMPLATES = [
     {
         "BACKEND": "django.template.backends.django.DjangoTemplates",
-        "DIRS": [BASE_DIR / "templates"],
+        "DIRS": [BASE_DIR / "user_registration" / "templates"],
         "APP_DIRS": True,
         "OPTIONS": {
             "context_processors": [
@@ -115,9 +115,9 @@ AUTH_PASSWORD_VALIDATORS = [
         "NAME": "django.contrib.auth.password_validation.MinimumLengthValidator",
         "OPTIONS": {"min_length": 8},
     },
-    {"NAME": "accounts.password_validation.UppercaseValidator"},
-    {"NAME": "accounts.password_validation.LowercaseValidator"},
-    {"NAME": "accounts.password_validation.DigitValidator"},
+    {"NAME": "user_registration.accounts.password_validation.UppercaseValidator"},
+    {"NAME": "user_registration.accounts.password_validation.LowercaseValidator"},
+    {"NAME": "user_registration.accounts.password_validation.DigitValidator"},
 ]
 
 AUTH_USER_MODEL = "accounts.User"
@@ -138,7 +138,7 @@ USE_TZ = True
 # https://docs.djangoproject.com/en/5.2/howto/static-files/
 
 STATIC_URL = "static/"
-STATICFILES_DIRS = [BASE_DIR / "static"]
+STATICFILES_DIRS = [BASE_DIR / "user_registration" / "static"]
 
 # Default primary key field type
 # https://docs.djangoproject.com/en/5.2/ref/settings/#default-auto-field

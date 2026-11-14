@@ -1,7 +1,7 @@
 import pytest
 
-from accounts.forms import SignupForm
-from accounts.models import User
+from user_registration.accounts.forms import SignupForm
+from user_registration.accounts.models import User
 
 
 def form_data(**overrides):

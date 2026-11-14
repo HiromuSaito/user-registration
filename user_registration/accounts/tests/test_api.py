@@ -5,7 +5,7 @@ from django.db import IntegrityError
 from django.urls import reverse
 from rest_framework.test import APIClient
 
-from accounts.models import User
+from user_registration.accounts.models import User
 
 USER_CREATE_URL = reverse("accounts_api:user_create")
 
@@ -60,7 +60,8 @@ def test_invalid_input_returns_400_with_errors_per_field(api_client):
 def test_integrity_error_returns_400(api_client):
     # 検証のあと保存までの間に同じメールで登録された状況を、保存時の例外で再現する
     with mock.patch(
-        "accounts.api.serializers.UserCreateSerializer.save", side_effect=IntegrityError
+        "user_registration.accounts.api.serializers.UserCreateSerializer.save",
+        side_effect=IntegrityError,
     ):
         response = post_json(api_client, VALID_DATA)
 

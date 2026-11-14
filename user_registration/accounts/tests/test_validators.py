@@ -1,7 +1,7 @@
 import pytest
 from django.core.exceptions import ValidationError
 
-from accounts.validators import (
+from user_registration.accounts.validators import (
     normalize_email,
     normalize_tel,
     validate_tel,

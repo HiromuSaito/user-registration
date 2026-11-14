@@ -1,9 +1,9 @@
 from django.contrib.auth.password_validation import validate_password
 from rest_framework import serializers
 
-from accounts.error_messages import EMAIL_TAKEN
-from accounts.models import User
-from accounts.validators import (
+from user_registration.accounts.error_messages import EMAIL_TAKEN
+from user_registration.accounts.models import User
+from user_registration.accounts.validators import (
     normalize_email,
     normalize_tel,
     validate_tel,
