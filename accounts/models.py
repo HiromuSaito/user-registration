@@ -30,6 +30,9 @@ class User(AbstractUser):
 
     class Meta(AbstractUser.Meta):
         constraints = [
+            # RFC ではローカル部（@ の前）の大文字・小文字を区別してよいが、実際に区別するメールサービスはほぼなく、
+            # 区別すると同じ人が大文字・小文字を変えただけで何度も登録できるため、区別せずに一意にする。
+            # 入力されたとおりの値を残すため、小文字にして保存するのではなく Lower() の一意制約にする
             models.UniqueConstraint(
                 Lower("email"),
                 name="unique_user_email_ci",
