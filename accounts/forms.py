@@ -1,23 +1,23 @@
 from django import forms
+from django.contrib.auth.password_validation import validate_password
 from django.core.exceptions import ValidationError
 
 from .models import User
 from .validators import (
     normalize_email,
     normalize_tel,
-    validate_password_rules,
     validate_tel,
     validate_username,
 )
 
 
-# UserCreationForm は登録時に Django 標準のパスワードの検証（AUTH_PASSWORD_VALIDATORS）を
-# 呼ぶため使わない。登録ではフロントとそろえた要件のルール（validate_password_rules）だけを確かめる
+# UserCreationForm はパスワードと確認用の 2 つの欄を前提にしている。確認用の欄を外すと、
+# 確認用の欄の値で行うパスワードの検証が飛ばされるため使わず、ModelForm で validate_password() を呼ぶ
 class SignupForm(forms.ModelForm):
     password = forms.CharField(
         label="パスワード",
         widget=forms.PasswordInput,
-        validators=[validate_password_rules],
+        validators=[validate_password],
     )
 
     class Meta:

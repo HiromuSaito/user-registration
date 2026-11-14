@@ -108,19 +108,16 @@ DATABASES = {
 # Password validation
 # https://docs.djangoproject.com/en/5.2/ref/settings/#auth-password-validators
 
+# フロントでも同じ判定ができるよう、要件のルールだけを置く。
+# よくあるパスワードやユーザー名との類似の判定はフロントで再現できないため入れない
 AUTH_PASSWORD_VALIDATORS = [
     {
-        "NAME": "django.contrib.auth.password_validation.UserAttributeSimilarityValidator",
-    },
-    {
         "NAME": "django.contrib.auth.password_validation.MinimumLengthValidator",
+        "OPTIONS": {"min_length": 8},
     },
-    {
-        "NAME": "django.contrib.auth.password_validation.CommonPasswordValidator",
-    },
-    {
-        "NAME": "django.contrib.auth.password_validation.NumericPasswordValidator",
-    },
+    {"NAME": "accounts.password_validation.UppercaseValidator"},
+    {"NAME": "accounts.password_validation.LowercaseValidator"},
+    {"NAME": "accounts.password_validation.DigitValidator"},
 ]
 
 AUTH_USER_MODEL = "accounts.User"

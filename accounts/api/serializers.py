@@ -1,10 +1,10 @@
+from django.contrib.auth.password_validation import validate_password
 from rest_framework import serializers
 
 from accounts.models import User
 from accounts.validators import (
     normalize_email,
     normalize_tel,
-    validate_password_rules,
     validate_tel,
     validate_username,
 )
@@ -16,7 +16,7 @@ class UserCreateSerializer(serializers.ModelSerializer):
     email = serializers.CharField(max_length=254)
     password = serializers.CharField(
         write_only=True,
-        validators=[validate_password_rules],
+        validators=[validate_password],
     )
 
     class Meta:

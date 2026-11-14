@@ -4,7 +4,6 @@ from django.core.exceptions import ValidationError
 from accounts.validators import (
     normalize_email,
     normalize_tel,
-    validate_password_rules,
     validate_tel,
     validate_username,
 )
@@ -61,33 +60,6 @@ def test_normalize_email_ok(value, expected):
 )
 def test_normalize_email_invalid(value):
     assert error_codes(normalize_email, value) == ["email_invalid"]
-
-
-@pytest.mark.parametrize(
-    ("value", "expected"),
-    [
-        pytest.param("Abcdefg1", [], id="all_rules_met"),
-        pytest.param("Abcdef1", ["password_too_short"], id="7_chars"),
-        pytest.param("abcdefg1", ["password_no_upper"], id="no_upper"),
-        pytest.param("ABCDEFG1", ["password_no_lower"], id="no_lower"),
-        pytest.param("Abcdefgh", ["password_no_digit"], id="no_digit"),
-        pytest.param(
-            "ＡＢＣdefgh1", ["password_no_upper"], id="fullwidth_upper_not_counted"
-        ),
-        pytest.param(
-            "",
-            [
-                "password_too_short",
-                "password_no_upper",
-                "password_no_lower",
-                "password_no_digit",
-            ],
-            id="empty",
-        ),
-    ],
-)
-def test_validate_password_rules(value, expected):
-    assert error_codes(validate_password_rules, value) == expected
 
 
 @pytest.mark.parametrize(
