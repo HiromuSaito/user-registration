@@ -68,7 +68,7 @@ def test_tel_can_be_omitted():
     ("field", "value", "expected"),
     [
         pytest.param("username", "", ["blank"], id="username_blank"),
-        pytest.param("username", "ab", ["username_too_short"], id="username_too_short"),
+        pytest.param("username", "ab", ["min_length"], id="username_too_short"),
         pytest.param("username", "ta ro", ["invalid"], id="username_invalid_chars"),
         pytest.param("email", "", ["blank"], id="email_blank"),
         pytest.param("email", "taro", ["email_invalid"], id="email_invalid"),

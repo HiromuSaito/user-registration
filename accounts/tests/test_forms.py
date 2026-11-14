@@ -57,7 +57,7 @@ def test_tel_is_normalized(tel, expected):
     ("field", "value", "expected"),
     [
         pytest.param("username", "", ["required"], id="username_required"),
-        pytest.param("username", "ab", ["username_too_short"], id="username_too_short"),
+        pytest.param("username", "ab", ["min_length"], id="username_too_short"),
         pytest.param("username", "ta ro", ["invalid"], id="username_invalid_chars"),
         pytest.param("email", "", ["required"], id="email_required"),
         pytest.param("email", "taro", ["email_invalid"], id="email_invalid"),

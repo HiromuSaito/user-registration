@@ -22,9 +22,9 @@ def error_codes(validator, value):
     ("value", "expected"),
     [
         pytest.param("abc", [], id="3_chars"),
-        pytest.param("ab", ["username_too_short"], id="2_chars"),
+        pytest.param("ab", ["min_length"], id="2_chars"),
         pytest.param("山田太郎", [], id="japanese_4_chars"),
-        pytest.param("山田", ["username_too_short"], id="japanese_2_chars"),
+        pytest.param("山田", ["min_length"], id="japanese_2_chars"),
     ],
 )
 def test_validate_username(value, expected):

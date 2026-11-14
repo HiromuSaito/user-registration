@@ -8,20 +8,24 @@ import re
 import unicodedata
 
 from django.core.exceptions import ValidationError
+from django.core.validators import MinLengthValidator, RegexValidator
 from email_validator import EmailNotValidError
 from email_validator import validate_email as validate_email_format
 
-USERNAME_MIN_LENGTH = 3
 PASSWORD_MIN_LENGTH = 8
 
+# 使える文字は AbstractUser の UnicodeUsernameValidator が確かめる
+validate_username = MinLengthValidator(
+    3,
+    message="ユーザー名は%(limit_value)d文字以上で入力してください。",
+)
 
-def validate_username(value):
-    # 使える文字は AbstractUser の UnicodeUsernameValidator が確かめる
-    if len(value) < USERNAME_MIN_LENGTH:
-        raise ValidationError(
-            "ユーザー名は3文字以上で入力してください。",
-            code="username_too_short",
-        )
+# \d や str.isdigit() は全角数字なども通すので、半角の 0〜9 だけを [0-9] で確かめる
+validate_tel = RegexValidator(
+    r"^[0-9]+\Z",
+    message="電話番号は数字のみで入力してください。",
+    code="tel_not_digits",
+)
 
 
 def normalize_email(value):
@@ -75,12 +79,3 @@ def validate_password_rules(value):
 
 def normalize_tel(value):
     return unicodedata.normalize("NFKC", value)
-
-
-def validate_tel(value):
-    # \d や str.isdigit() は全角数字なども通すので、半角の 0〜9 だけを [0-9] で確かめる
-    if not re.fullmatch(r"[0-9]+", value):
-        raise ValidationError(
-            "電話番号は数字のみで入力してください。",
-            code="tel_not_digits",
-        )
