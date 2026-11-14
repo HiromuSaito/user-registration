@@ -38,7 +38,7 @@ class User(AbstractUser):
         ],
         error_messages={"unique": "同じユーザー名が既に登録済みです。"},
     )
-    email = models.EmailField("メールアドレス", max_length=254)
+    email = models.EmailField("メールアドレス")
     # 要件で null=True が指定されているため DJ001 を止める。空は None に統一する
     tel = models.CharField("電話番号", max_length=20, null=True, blank=True)  # noqa: DJ001
     pref = models.ForeignKey(Pref, on_delete=models.PROTECT, verbose_name="都道府県")
@@ -58,6 +58,3 @@ class User(AbstractUser):
                 violation_error_message=EMAIL_TAKEN,
             ),
         ]
-
-    def __str__(self):
-        return self.username
