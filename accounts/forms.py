@@ -2,6 +2,7 @@ from django import forms
 from django.contrib.auth.password_validation import validate_password
 from django.core.exceptions import ValidationError
 
+from .error_messages import EMAIL_TAKEN
 from .models import User
 from .validators import (
     normalize_email,
@@ -36,10 +37,7 @@ class SignupForm(forms.ModelForm):
     def clean_email(self):
         email = normalize_email(self.cleaned_data["email"])
         if User.objects.email_is_registered(email):
-            raise ValidationError(
-                "このメールアドレスは既に登録されています。",
-                code="email_taken",
-            )
+            raise ValidationError(EMAIL_TAKEN, code="email_taken")
         return email
 
     def clean_tel(self):

@@ -6,6 +6,8 @@ from rest_framework.decorators import api_view
 from rest_framework.response import Response
 from rest_framework.settings import api_settings
 
+from accounts.error_messages import SIGNUP_FAILED
+
 from .serializers import UserCreateSerializer
 
 
@@ -33,11 +35,7 @@ def user_create(request):
             serializer.save()
     except IntegrityError:
         return Response(
-            {
-                api_settings.NON_FIELD_ERRORS_KEY: [
-                    "登録できませんでした。入力内容を確かめて、もう一度お試しください。"
-                ]
-            },
+            {api_settings.NON_FIELD_ERRORS_KEY: [SIGNUP_FAILED]},
             status=status.HTTP_400_BAD_REQUEST,
         )
     return Response(serializer.data, status=status.HTTP_201_CREATED)

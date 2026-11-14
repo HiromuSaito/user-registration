@@ -1,6 +1,7 @@
 from django.db import IntegrityError, transaction
 from django.shortcuts import redirect, render
 
+from .error_messages import SIGNUP_FAILED
 from .forms import SignupForm
 
 SIGNUP_COMPLETED_SESSION_KEY = "signup_completed"
@@ -16,10 +17,7 @@ def signup(request):
                 with transaction.atomic():
                     form.save()
             except IntegrityError:
-                form.add_error(
-                    None,
-                    "登録できませんでした。入力内容を確かめて、もう一度お試しください。",
-                )
+                form.add_error(None, SIGNUP_FAILED)
             else:
                 request.session[SIGNUP_COMPLETED_SESSION_KEY] = True
                 return redirect("accounts:signup_complete")

@@ -6,6 +6,8 @@ from django.db.models.functions import Lower
 
 from locations.models import Pref
 
+from .error_messages import EMAIL_TAKEN
+
 
 class UserManager(DjangoUserManager):
     def create_superuser(self, username, email=None, password=None, **extra_fields):
@@ -53,7 +55,7 @@ class User(AbstractUser):
             models.UniqueConstraint(
                 Lower("email"),
                 name="unique_user_email_ci",
-                violation_error_message="このメールアドレスは既に登録されています。",
+                violation_error_message=EMAIL_TAKEN,
             ),
         ]
 

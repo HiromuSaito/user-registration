@@ -1,6 +1,7 @@
 from django.contrib.auth.password_validation import validate_password
 from rest_framework import serializers
 
+from accounts.error_messages import EMAIL_TAKEN
 from accounts.models import User
 from accounts.validators import (
     normalize_email,
@@ -30,10 +31,7 @@ class UserCreateSerializer(serializers.ModelSerializer):
     def validate_email(self, value):
         email = normalize_email(value)
         if User.objects.email_is_registered(email):
-            raise serializers.ValidationError(
-                "このメールアドレスは既に登録されています。",
-                code="email_taken",
-            )
+            raise serializers.ValidationError(EMAIL_TAKEN, code="email_taken")
         return email
 
     def validate_tel(self, value):
