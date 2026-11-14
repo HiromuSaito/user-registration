@@ -1,5 +1,6 @@
 from django.contrib.auth.models import AbstractUser
 from django.contrib.auth.models import UserManager as DjangoUserManager
+from django.contrib.auth.validators import UnicodeUsernameValidator
 from django.db import models
 from django.db.models.functions import Lower
 
@@ -19,6 +20,22 @@ class UserManager(DjangoUserManager):
 
 
 class User(AbstractUser):
+    # Django の日本語の訳は「半角英数、@/./+/-/_ を使用できます」だが、UnicodeUsernameValidator は
+    # 日本語などの文字も通すため、実際の動きに合わせてエラーメッセージと説明を書き直す。
+    # バリデーターは AbstractUser がフィールドを作るときに組み込まれ、username_validator を
+    # 上書きするだけでは変わらないため、フィールドごと定義し直す。メッセージと説明以外は AbstractUser と同じ
+    username = models.CharField(
+        "ユーザー名",
+        max_length=150,
+        unique=True,
+        help_text="必須。150文字以下で、文字、数字、@/./+/-/_ だけを使えます。",
+        validators=[
+            UnicodeUsernameValidator(
+                message="ユーザー名には、文字、数字、@/./+/-/_ だけを使えます。"
+            )
+        ],
+        error_messages={"unique": "同じユーザー名が既に登録済みです。"},
+    )
     email = models.EmailField("メールアドレス", max_length=254)
     # 要件で null=True が指定されているため DJ001 を止める。空は None に統一する
     tel = models.CharField("電話番号", max_length=20, null=True, blank=True)  # noqa: DJ001

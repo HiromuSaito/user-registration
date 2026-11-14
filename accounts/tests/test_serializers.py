@@ -143,3 +143,20 @@ def test_password_is_not_in_output():
         "tel": None,
         "pref": 13,
     }
+
+
+@pytest.mark.django_db
+def test_username_allows_non_ascii_letters():
+    serializer = UserCreateSerializer(data=request_data(username="山田太郎"))
+
+    assert serializer.is_valid(), serializer.errors
+
+
+@pytest.mark.django_db
+def test_username_invalid_chars_message_matches_behavior():
+    serializer = UserCreateSerializer(data=request_data(username="ta ro"))
+
+    assert not serializer.is_valid()
+    assert serializer.errors["username"] == [
+        "ユーザー名には、文字、数字、@/./+/-/_ だけを使えます。"
+    ]

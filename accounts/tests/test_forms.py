@@ -104,3 +104,20 @@ def test_duplicate(field, registered, value, expected):
 
     assert not form.is_valid()
     assert error_codes(form, field) == expected
+
+
+@pytest.mark.django_db
+def test_username_allows_non_ascii_letters():
+    form = SignupForm(data=form_data(username="山田太郎"))
+
+    assert form.is_valid(), form.errors
+
+
+@pytest.mark.django_db
+def test_username_invalid_chars_message_matches_behavior():
+    form = SignupForm(data=form_data(username="ta ro"))
+
+    assert not form.is_valid()
+    assert form.errors["username"] == [
+        "ユーザー名には、文字、数字、@/./+/-/_ だけを使えます。"
+    ]
