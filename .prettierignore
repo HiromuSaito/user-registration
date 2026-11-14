@@ -1,0 +1,11 @@
+# Python 側の文書や設定は Prettier の対象にしない。フロントのファイルとその設定だけを整形する
+/*
+!/frontend/
+!/package.json
+!/tsconfig*.json
+!/vite.config.ts
+!/.oxlintrc.json
+!/.prettierrc
+
+# 生成したファイルは、生成したままの形と比べて最新か確かめるため整形しない
+/frontend/src/api/schema.*
