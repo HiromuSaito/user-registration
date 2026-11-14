@@ -16,3 +16,7 @@ def test_no_pending_migrations():
         call_command("makemigrations", "--check", stdout=out, stderr=StringIO())
     except SystemExit:
         pytest.fail(f"マイグレーションになっていない変更があります。\n{out.getvalue()}")
+
+
+def test_api_schema_is_valid_without_warnings():
+    call_command("spectacular", "--validate", "--fail-on-warn", stdout=StringIO())

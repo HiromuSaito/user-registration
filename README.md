@@ -25,6 +25,8 @@ http://127.0.0.1:8000/ で起動します。
 | http://127.0.0.1:8000/signup/ | 登録画面（Django のフォーム） |
 | http://127.0.0.1:8000/signup/complete/ | 登録の完了画面（登録した直後だけ表示される） |
 | http://127.0.0.1:8000/admin/ | 管理画面（`uv run python manage.py createsuperuser` で作った管理者でログインする） |
+| http://127.0.0.1:8000/api/docs/ | API の仕様書（Swagger UI。画面から API を試せる） |
+| http://127.0.0.1:8000/api/schema/ | API の仕様書（OpenAPI の YAML） |
 
 ## 開発
 
