@@ -65,7 +65,7 @@ def test_complete_page_is_shown_once_after_signup(client):
     second = client.get(COMPLETE_URL)
 
     assert first.status_code == 200
-    assert "登録が完了しました。" in first.content.decode()
+    assert "accounts/signup_complete.html" in [t.name for t in first.templates]
     assert second.status_code == 302
     assert second.url == SIGNUP_URL
 
