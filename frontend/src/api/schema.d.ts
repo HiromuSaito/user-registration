@@ -46,10 +46,7 @@ export interface components {
             name: string;
         };
         UserCreate: {
-            /**
-             * ユーザー名
-             * @description 必須。150文字以下で、文字、数字、@/./+/-/_ だけを使えます。
-             */
+            /** ユーザー名 */
             username: string;
             email: string;
             /** 電話番号 */
@@ -61,10 +58,7 @@ export interface components {
             pref: number;
         };
         UserCreateRequest: {
-            /**
-             * ユーザー名
-             * @description 必須。150文字以下で、文字、数字、@/./+/-/_ だけを使えます。
-             */
+            /** ユーザー名 */
             username: string;
             email: string;
             password: string;
