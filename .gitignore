@@ -9,7 +9,6 @@ htmlcov/
 
 # Django
 db.sqlite3
-/static/dist/
 .env
 
 # Node
