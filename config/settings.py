@@ -47,6 +47,7 @@ INSTALLED_APPS = [
     "django.contrib.staticfiles",
     "rest_framework",
     "drf_spectacular",
+    "django_vite",
     "user_registration.locations",
     "user_registration.accounts",
 ]
@@ -138,7 +139,18 @@ USE_TZ = True
 # https://docs.djangoproject.com/en/5.2/howto/static-files/
 
 STATIC_URL = "static/"
-STATICFILES_DIRS = [BASE_DIR / "user_registration" / "static"]
+STATICFILES_DIRS = [
+    BASE_DIR / "user_registration" / "static",
+    BASE_DIR / "frontend" / "dist",
+]
+
+DJANGO_VITE = {
+    "default": {
+        "dev_mode": DEBUG,
+        # 既定では STATIC_ROOT の下を探すが、このプロジェクトは STATIC_ROOT を使わない
+        "manifest_path": BASE_DIR / "frontend" / "dist" / "manifest.json",
+    }
+}
 
 # Default primary key field type
 # https://docs.djangoproject.com/en/5.2/ref/settings/#default-auto-field

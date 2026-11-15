@@ -1,0 +1,17 @@
+{% extends "base.html" %}
+{% load django_vite %}
+
+{% block title %}ユーザー登録{% endblock %}
+
+{% block head %}
+  {% vite_hmr_client %}
+  {% vite_react_refresh %}
+  {% vite_asset "src/main.tsx" %}
+{% endblock %}
+
+{% block content %}
+  <noscript>
+    <p><a href="{% url 'accounts:signup' %}">こちらの登録画面</a>から登録できます。</p>
+  </noscript>
+  <div id="root"></div>
+{% endblock %}

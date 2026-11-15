@@ -1,7 +1,9 @@
 from django.contrib import admin
-from django.urls import include, path
+from django.urls import include, path, reverse_lazy
 from django.views.generic import RedirectView
 from drf_spectacular.views import SpectacularAPIView, SpectacularSwaggerView
+
+from user_registration.views import spa
 
 urlpatterns = [
     path("admin/", admin.site.urls),
@@ -13,6 +15,11 @@ urlpatterns = [
         SpectacularSwaggerView.as_view(url_name="api-schema"),
         name="api-docs",
     ),
-    path("", RedirectView.as_view(pattern_name="accounts:signup")),
+    path("app/", spa, name="spa"),
+    path("app/<path:path>", spa, name="spa"),
+    path(
+        "",
+        RedirectView.as_view(url=reverse_lazy("spa", kwargs={"path": "signup/"})),
+    ),
     path("", include("user_registration.accounts.urls")),
 ]

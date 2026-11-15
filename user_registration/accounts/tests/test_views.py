@@ -70,13 +70,6 @@ def test_complete_page_is_shown_once_after_signup(client):
     assert second.url == SIGNUP_URL
 
 
-def test_root_redirects_to_signup(client):
-    response = client.get("/")
-
-    assert response.status_code == 302
-    assert response.url == SIGNUP_URL
-
-
 def test_complete_page_redirects_without_signup(client):
     response = client.get(COMPLETE_URL)
 

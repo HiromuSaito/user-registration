@@ -16,10 +16,20 @@ uv sync
 pnpm install
 cp .env.example .env
 uv run python manage.py migrate
+```
+
+## 起動
+
+開発中（`.env` の `DJANGO_DEBUG=true`）は、Django と Vite の開発サーバーを両方起動します。
+
+```bash
 uv run python manage.py runserver
+pnpm run dev
 ```
 
 http://127.0.0.1:8000/ で起動します。
+
+`DJANGO_DEBUG=false` で動かすときは、先に `pnpm run build` でフロントをビルドします。
 
 ## 開発
 
@@ -32,11 +42,11 @@ http://127.0.0.1:8000/ で起動します。
 
 ### フロントエンド
 
-- リンター: `pnpm lint`
-- フォーマット: `pnpm format`
-- テスト: `pnpm test`
-- 型チェックとビルド: `pnpm build`
-- CI と同じチェック: `pnpm lint && pnpm format:check && pnpm test && pnpm build`
+- リンター: `pnpm run lint`
+- フォーマット: `pnpm run format`
+- テスト: `pnpm run test`
+- 型チェックとビルド: `pnpm run build`
+- CI と同じチェック: `pnpm run lint && pnpm run format:check && pnpm run test && pnpm run build`
 
 ## ドキュメント
 
