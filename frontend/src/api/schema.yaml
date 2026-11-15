@@ -1,0 +1,126 @@
+openapi: 3.0.3
+info:
+  title: user-registration API
+  version: 1.0.0
+paths:
+  /api/prefs/:
+    get:
+      operationId: prefs_list
+      tags:
+      - prefs
+      security:
+      - {}
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/Pref'
+          description: ''
+  /api/users/:
+    post:
+      operationId: users_create
+      tags:
+      - users
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/UserCreateRequest'
+          application/x-www-form-urlencoded:
+            schema:
+              $ref: '#/components/schemas/UserCreateRequest'
+          multipart/form-data:
+            schema:
+              $ref: '#/components/schemas/UserCreateRequest'
+        required: true
+      security:
+      - {}
+      responses:
+        '201':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/UserCreate'
+          description: ''
+        '400':
+          description: 入力の誤り。項目ごとにエラーのメッセージの配列を返す
+components:
+  schemas:
+    Pref:
+      type: object
+      properties:
+        code:
+          type: integer
+          maximum: 9223372036854775807
+          minimum: 0
+          format: int64
+        name:
+          type: string
+          maxLength: 4
+      required:
+      - code
+      - name
+    UserCreate:
+      type: object
+      properties:
+        username:
+          type: string
+          title: ユーザー名
+          description: 必須。150文字以下で、文字、数字、@/./+/-/_ だけを使えます。
+          pattern: ^[\w.@+-]+$
+          maxLength: 150
+        email:
+          type: string
+          maxLength: 254
+        tel:
+          type: string
+          nullable: true
+          title: 電話番号
+          maxLength: 20
+        pref:
+          type: integer
+          maximum: 9223372036854775807
+          minimum: 0
+          format: int64
+          title: 都道府県
+      required:
+      - email
+      - pref
+      - username
+    UserCreateRequest:
+      type: object
+      properties:
+        username:
+          type: string
+          minLength: 1
+          title: ユーザー名
+          description: 必須。150文字以下で、文字、数字、@/./+/-/_ だけを使えます。
+          pattern: ^[\w.@+-]+$
+          maxLength: 150
+        email:
+          type: string
+          minLength: 1
+          maxLength: 254
+        password:
+          type: string
+          writeOnly: true
+          minLength: 1
+        tel:
+          type: string
+          nullable: true
+          title: 電話番号
+          maxLength: 20
+        pref:
+          type: integer
+          maximum: 9223372036854775807
+          minimum: 0
+          format: int64
+          title: 都道府県
+      required:
+      - email
+      - password
+      - pref
+      - username

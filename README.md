@@ -48,6 +48,15 @@ http://127.0.0.1:8000/ で起動します。
 - 型チェックとビルド: `pnpm run build`
 - CI と同じチェック: `pnpm run lint && pnpm run format:check && pnpm run test && pnpm run build`
 
+### API を変えたとき
+
+API のスキーマと、フロントで使う型を作り直します。作り直さないと、テストと CI が失敗します。
+
+```bash
+uv run python manage.py spectacular --file frontend/src/api/schema.yaml
+pnpm run gen:types
+```
+
 ## ドキュメント
 
 - 設計判断の記録: [docs/adr](docs/adr/README.md)

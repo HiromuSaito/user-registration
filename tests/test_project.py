@@ -1,6 +1,8 @@
 from io import StringIO
+from pathlib import Path
 
 import pytest
+from django.conf import settings
 from django.core import checks
 from django.core.management import call_command
 
@@ -31,3 +33,15 @@ def test_no_pending_migrations():
 
 def test_api_schema_is_valid_without_warnings():
     call_command("spectacular", "--validate", "--fail-on-warn", stdout=StringIO())
+
+
+def test_api_schema_file_is_up_to_date():
+    schema_file = Path(settings.BASE_DIR) / "frontend" / "src" / "api" / "schema.yaml"
+    out = StringIO()
+    call_command("spectacular", stdout=out)
+
+    assert out.getvalue() == schema_file.read_text(encoding="utf-8"), (
+        "API のスキーマのファイルが古くなっています。次のコマンドで作り直してください。\n"
+        "uv run python manage.py spectacular --file frontend/src/api/schema.yaml"
+        " && pnpm run gen:types"
+    )
