@@ -1,4 +1,5 @@
 import { useNavigate } from "react-router";
+
 import { SignupForm } from "@/features/signup/components/signup-form";
 
 export const SignupPage = () => {

@@ -1,6 +1,7 @@
 import { render, screen } from "@testing-library/react";
 import { MemoryRouter } from "react-router";
 import { describe, expect, test } from "vitest";
+
 import { App } from "@/app/app";
 
 const renderAt = (entry: string | { pathname: string; state: unknown }) => {

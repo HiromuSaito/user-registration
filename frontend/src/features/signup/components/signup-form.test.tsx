@@ -2,8 +2,9 @@ import { render, screen, waitFor } from "@testing-library/react";
 import userEvent from "@testing-library/user-event";
 import { http, HttpResponse } from "msw";
 import { describe, expect, onTestFinished, test, vi } from "vitest";
-import { server } from "@/test/server";
+
 import { SignupForm } from "@/features/signup/components/signup-form";
+import { server } from "@/test/server";
 
 const renderForm = async () => {
   const onSuccess = vi.fn();

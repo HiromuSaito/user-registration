@@ -1,8 +1,8 @@
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useEffect, useState } from "react";
 import { useForm } from "react-hook-form";
+
 import { Field } from "@/components/ui/field";
-import { setServerErrors } from "@/utils/form-errors";
 import { createUser } from "@/features/signup/api/create-user";
 import { getPrefs, type Pref } from "@/features/signup/api/get-prefs";
 import {
@@ -13,6 +13,7 @@ import {
   type SignupFormValues,
   type SignupInput,
 } from "@/features/signup/schemas/signup";
+import { setServerErrors } from "@/utils/form-errors";
 
 const SIGNUP_FAILED =
   "登録できませんでした。入力内容を確かめて、もう一度お試しください。";
