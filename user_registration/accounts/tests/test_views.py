@@ -45,6 +45,13 @@ def test_invalid_input_shows_errors_without_saving(client):
 
 
 @pytest.mark.django_db
+def test_field_errors_are_summarized_at_top(client):
+    response = client.post(SIGNUP_URL, {**VALID_DATA, "username": "ab"})
+
+    assert "入力内容に誤りがあります。" in response.content.decode()
+
+
+@pytest.mark.django_db
 def test_integrity_error_is_shown_as_form_error(client):
     # 検証のあと保存までの間に同じメールで登録された状況を、保存時の例外で再現する
     with mock.patch(
@@ -75,3 +82,22 @@ def test_complete_page_redirects_without_signup(client):
 
     assert response.status_code == 302
     assert response.url == SIGNUP_URL
+
+
+@pytest.mark.django_db
+def test_field_with_error_is_marked_invalid_and_linked_to_message(client):
+    response = client.post(SIGNUP_URL, {**VALID_DATA, "username": "ab"})
+    html = response.content.decode()
+
+    assert 'aria-invalid="true"' in html
+    assert 'aria-describedby="id_username_error"' in html
+    assert 'id="id_username_error"' in html
+
+
+@pytest.mark.django_db
+def test_only_optional_field_is_labeled_optional(client):
+    response = client.get(SIGNUP_URL)
+    html = response.content.decode()
+
+    assert html.count('class="field-optional"') == 1
+    assert '電話番号<span class="field-optional">' in html

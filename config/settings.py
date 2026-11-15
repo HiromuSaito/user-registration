@@ -45,6 +45,7 @@ INSTALLED_APPS = [
     "django.contrib.sessions",
     "django.contrib.messages",
     "django.contrib.staticfiles",
+    "django.forms",
     "rest_framework",
     "drf_spectacular",
     "django_vite",
@@ -91,6 +92,8 @@ TEMPLATES = [
         },
     },
 ]
+
+FORM_RENDERER = "user_registration.renderers.FormRenderer"
 
 WSGI_APPLICATION = "config.wsgi.application"
 
