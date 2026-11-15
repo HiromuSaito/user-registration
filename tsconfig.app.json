@@ -15,6 +15,7 @@
     "moduleDetection": "force",
     "noEmit": true,
     "jsx": "react-jsx",
+    "paths": { "@/*": ["./frontend/src/*"] },
 
     /* Linting */
     "noUnusedLocals": true,

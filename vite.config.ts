@@ -8,6 +8,7 @@ export default defineConfig({
   root: "frontend",
   // Django の STATIC_URL と合わせる。ビルドしたファイルは Django の静的ファイルとして配信される
   base: "/static/",
+  resolve: { tsconfigPaths: true },
   build: {
     manifest: "manifest.json",
     outDir: "dist",
