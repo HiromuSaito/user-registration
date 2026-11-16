@@ -54,9 +54,8 @@ components:
       properties:
         code:
           type: integer
-          maximum: 9223372036854775807
+          maximum: 32767
           minimum: 0
-          format: int64
         name:
           type: string
           maxLength: 4
@@ -81,9 +80,8 @@ components:
           maxLength: 20
         pref:
           type: integer
-          maximum: 9223372036854775807
+          maximum: 32767
           minimum: 0
-          format: int64
           title: 都道府県
       required:
       - email
@@ -113,9 +111,8 @@ components:
           maxLength: 20
         pref:
           type: integer
-          maximum: 9223372036854775807
+          maximum: 32767
           minimum: 0
-          format: int64
           title: 都道府県
       required:
       - email
