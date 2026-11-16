@@ -2,7 +2,9 @@ from django.contrib.auth.models import AbstractUser
 from django.contrib.auth.models import UserManager as DjangoUserManager
 from django.contrib.auth.validators import UnicodeUsernameValidator
 from django.db import models
+from django.db.models import Value
 from django.db.models.functions import Lower
+from django.db.models.lookups import Exact
 
 from user_registration.locations.models import Pref
 
@@ -18,7 +20,8 @@ class UserManager(DjangoUserManager):
         return super().create_superuser(username, email, password, **extra_fields)
 
     def email_is_registered(self, email):
-        return self.filter(email__iexact=email).exists()
+        # iexact は UPPER で比べるため、LOWER で作った一意制約のインデックスを使えない。同じ LOWER の形で比べる
+        return self.filter(Exact(Lower("email"), Lower(Value(email)))).exists()
 
 
 class User(AbstractUser):
