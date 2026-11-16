@@ -6,3 +6,4 @@
 - [0002. Django を 5.2 LTS に留める](0002-stay-on-django-5-2-lts.md)
 - [0003. API は Django REST Framework で作る](0003-build-api-with-django-rest-framework.md)
 - [0004. 画面と API のビューは関数ベースで書く](0004-write-views-as-functions.md)
+- [0005. React の画面は Django から配信する](0005-serve-react-from-django.md)
