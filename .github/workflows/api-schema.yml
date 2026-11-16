@@ -13,6 +13,15 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v7
+      - uses: astral-sh/setup-uv@v10.3.3
+        with:
+          enable-cache: true
+      - run: uv sync --locked
+      # 設定の読み込みに必須の値を .env.example からそろえる。スキーマを作るのに DB にはつながないため、PostgreSQL は立てない。
+      # 必須の設定を足して .env.example に書き忘れると、スキーマを作るときに落ちて気づける
+      - run: cp .env.example .env
+      # コミットしてあるスキーマが、Django のコードから作り直したものと同じか確かめる
+      - run: uv run python manage.py spectacular --validate --file frontend/src/api/schema.yaml && git diff --exit-code frontend/src/api/schema.yaml
       # pnpm の版は package.json の packageManager から、Node の版は .nvmrc から読み、手元とそろえる
       - uses: pnpm/action-setup@v6.1.0
       - uses: actions/setup-node@v7.1.0
