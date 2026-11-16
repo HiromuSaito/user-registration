@@ -121,3 +121,20 @@ def test_username_invalid_chars_message_matches_behavior():
     assert form.errors["username"] == [
         "ユーザー名には、文字、数字、@/./+/-/_ だけを使えます。"
     ]
+
+
+@pytest.mark.django_db
+@pytest.mark.parametrize(
+    ("field", "label"),
+    [
+        ("username", "ユーザー名"),
+        ("email", "メールアドレス"),
+        ("password", "パスワード"),
+        ("pref", "都道府県"),
+    ],
+)
+def test_required_message_names_the_field(field, label):
+    form = SignupForm(data=form_data(**{field: ""}))
+
+    assert not form.is_valid()
+    assert form.errors[field] == [f"{label}は必須です。"]

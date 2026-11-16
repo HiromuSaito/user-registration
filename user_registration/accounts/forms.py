@@ -2,7 +2,7 @@ from django import forms
 from django.contrib.auth.password_validation import validate_password
 from django.core.exceptions import ValidationError
 
-from .error_messages import EMAIL_TAKEN
+from .error_messages import EMAIL_TAKEN, required_message
 from .models import User
 from .validators import (
     normalize_email,
@@ -28,6 +28,11 @@ class SignupForm(forms.ModelForm):
         # email-validator のエラー（email_invalid）にたどり着かないため、検証のない CharField にする
         field_classes = {"email": forms.CharField}
         widgets = {"email": forms.EmailInput}
+
+    def __init__(self, *args, **kwargs):
+        super().__init__(*args, **kwargs)
+        for field in self.fields.values():
+            field.error_messages["required"] = required_message(field.label)
 
     def clean_username(self):
         username = self.cleaned_data["username"]

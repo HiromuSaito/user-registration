@@ -1,7 +1,8 @@
+from django import forms
 from django.contrib.auth.password_validation import validate_password
 from rest_framework import serializers
 
-from user_registration.accounts.error_messages import EMAIL_TAKEN
+from user_registration.accounts.error_messages import EMAIL_TAKEN, required_message
 from user_registration.accounts.models import User
 from user_registration.accounts.validators import (
     normalize_email,
@@ -10,12 +11,15 @@ from user_registration.accounts.validators import (
     validate_username,
 )
 
+INVALID_CHOICE = forms.ModelChoiceField.default_error_messages["invalid_choice"]
+
 
 class UserCreateSerializer(serializers.ModelSerializer):
     # モデルの EmailField から作ると Django の EmailValidator が validate_email() より先に動き、
     # email-validator のエラー（email_invalid）にたどり着かないため、検証のない CharField にする
-    email = serializers.CharField(max_length=254)
+    email = serializers.CharField(label="メールアドレス", max_length=254)
     password = serializers.CharField(
+        label="パスワード",
         write_only=True,
         validators=[validate_password],
     )
@@ -23,6 +27,20 @@ class UserCreateSerializer(serializers.ModelSerializer):
     class Meta:
         model = User
         fields = ["username", "email", "password", "tel", "pref"]
+        extra_kwargs = {
+            "pref": {
+                "error_messages": {
+                    "does_not_exist": INVALID_CHOICE,
+                    "incorrect_type": INVALID_CHOICE,
+                }
+            }
+        }
+
+    def __init__(self, *args, **kwargs):
+        super().__init__(*args, **kwargs)
+        for field in self.fields.values():
+            message = required_message(field.label)
+            field.error_messages.update(required=message, blank=message, null=message)
 
     def validate_username(self, value):
         validate_username(value)

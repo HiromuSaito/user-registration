@@ -73,6 +73,7 @@ components:
           maxLength: 150
         email:
           type: string
+          title: メールアドレス
           maxLength: 254
         tel:
           type: string
@@ -101,11 +102,13 @@ components:
         email:
           type: string
           minLength: 1
+          title: メールアドレス
           maxLength: 254
         password:
           type: string
           writeOnly: true
           minLength: 1
+          title: パスワード
         tel:
           type: string
           nullable: true

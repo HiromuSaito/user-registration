@@ -48,6 +48,7 @@ export interface components {
         UserCreate: {
             /** ユーザー名 */
             username: string;
+            /** メールアドレス */
             email: string;
             /** 電話番号 */
             tel?: string | null;
@@ -60,7 +61,9 @@ export interface components {
         UserCreateRequest: {
             /** ユーザー名 */
             username: string;
+            /** メールアドレス */
             email: string;
+            /** パスワード */
             password: string;
             /** 電話番号 */
             tel?: string | null;

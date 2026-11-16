@@ -1,6 +1,7 @@
 import pytest
 
 from user_registration.accounts.api.serializers import UserCreateSerializer
+from user_registration.accounts.forms import SignupForm
 from user_registration.accounts.models import User
 
 
@@ -160,3 +161,35 @@ def test_username_invalid_chars_message_matches_behavior():
     assert serializer.errors["username"] == [
         "ユーザー名には、文字、数字、@/./+/-/_ だけを使えます。"
     ]
+
+
+@pytest.mark.django_db
+@pytest.mark.parametrize(
+    ("field", "label", "empty"),
+    [
+        pytest.param("username", "ユーザー名", "", id="username_blank"),
+        pytest.param("email", "メールアドレス", "", id="email_blank"),
+        pytest.param("password", "パスワード", "", id="password_blank"),
+        pytest.param("pref", "都道府県", None, id="pref_null"),
+    ],
+)
+def test_required_message_names_the_field(field, label, empty):
+    blank = UserCreateSerializer(data=request_data(**{field: empty}))
+    data = request_data()
+    del data[field]
+    missing = UserCreateSerializer(data=data)
+
+    for serializer in (blank, missing):
+        assert not serializer.is_valid()
+        assert serializer.errors[field] == [f"{label}は必須です。"]
+
+
+@pytest.mark.django_db
+@pytest.mark.parametrize("pref", [48, "abc"])
+def test_invalid_pref_message_matches_signup_form(pref):
+    serializer = UserCreateSerializer(data=request_data(pref=pref))
+    form = SignupForm(data={**request_data(), "pref": str(pref)})
+
+    assert not serializer.is_valid()
+    assert not form.is_valid()
+    assert serializer.errors["pref"] == form.errors["pref"]

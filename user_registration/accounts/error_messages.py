@@ -2,3 +2,7 @@
 
 EMAIL_TAKEN = "このメールアドレスは既に登録されています。"
 SIGNUP_FAILED = "登録できませんでした。入力内容を確かめて、もう一度お試しください。"
+
+
+def required_message(label):
+    return f"{label}は必須です。"
