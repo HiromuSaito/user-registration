@@ -56,3 +56,16 @@ jobs:
           enable-cache: true
       - run: uv sync --locked
       - run: uv run pytest
+
+  backend-migrations:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v7
+      - uses: astral-sh/setup-uv@v10.3.3
+        with:
+          enable-cache: true
+      - run: uv sync --locked
+      # 設定の読み込みに必須の値を .env.example からそろえる。PostgreSQL は立てない。
+      # DB につながらないと、適用済みのマイグレーションとの矛盾を確かめられないという警告が出る。CI の DB は毎回空で確かめる中身がないため、気にしなくてよい
+      - run: cp .env.example .env
+      - run: uv run python manage.py makemigrations --check --dry-run
