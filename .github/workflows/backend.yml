@@ -1,4 +1,4 @@
-name: CI
+name: Backend
 
 on:
   push:
@@ -9,7 +9,7 @@ permissions:
   contents: read
 
 jobs:
-  lint:
+  backend-lint:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v7
@@ -20,7 +20,7 @@ jobs:
       - run: uv run ruff check .
       - run: uv run ruff format --check .
 
-  test:
+  backend-test:
     runs-on: ubuntu-latest
     strategy:
       matrix:
@@ -56,21 +56,3 @@ jobs:
           enable-cache: true
       - run: uv sync --locked
       - run: uv run pytest
-
-  frontend:
-    runs-on: ubuntu-latest
-    steps:
-      - uses: actions/checkout@v7
-      # pnpm の版は package.json の packageManager から、Node の版は .nvmrc から読み、手元とそろえる
-      - uses: pnpm/action-setup@v6.1.0
-      - uses: actions/setup-node@v7.1.0
-        with:
-          node-version-file: .nvmrc
-          cache: pnpm
-      - run: pnpm install --frozen-lockfile
-      - run: pnpm run lint
-      - run: pnpm run format:check
-      - run: pnpm run test
-      - run: pnpm run build
-      # コミットしてある型が、コミットしてあるスキーマから作り直したものと同じか確かめる
-      - run: pnpm run gen:types && git diff --exit-code frontend/src/api/schema.d.ts
