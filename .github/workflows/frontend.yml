@@ -14,7 +14,7 @@ jobs:
     steps:
       - uses: actions/checkout@v7
       # pnpm の版は package.json の packageManager から、Node の版は .nvmrc から読み、手元とそろえる
-      - uses: pnpm/action-setup@v6.1.0
+      - uses: pnpm/action-setup@v6.1.1
       - uses: actions/setup-node@v7.1.0
         with:
           node-version-file: .nvmrc
@@ -27,7 +27,7 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v7
-      - uses: pnpm/action-setup@v6.1.0
+      - uses: pnpm/action-setup@v6.1.1
       - uses: actions/setup-node@v7.1.0
         with:
           node-version-file: .nvmrc
@@ -39,7 +39,7 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v7
-      - uses: pnpm/action-setup@v6.1.0
+      - uses: pnpm/action-setup@v6.1.1
       - uses: actions/setup-node@v7.1.0
         with:
           node-version-file: .nvmrc
