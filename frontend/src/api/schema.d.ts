@@ -41,7 +41,6 @@ export type webhooks = Record<string, never>;
 export interface components {
     schemas: {
         Pref: {
-            /** Format: int64 */
             code: number;
             name: string;
         };
@@ -52,10 +51,7 @@ export interface components {
             email: string;
             /** 電話番号 */
             tel?: string | null;
-            /**
-             * 都道府県
-             * Format: int64
-             */
+            /** 都道府県 */
             pref: number;
         };
         UserCreateRequest: {
@@ -67,10 +63,7 @@ export interface components {
             password: string;
             /** 電話番号 */
             tel?: string | null;
-            /**
-             * 都道府県
-             * Format: int64
-             */
+            /** 都道府県 */
             pref: number;
         };
     };
