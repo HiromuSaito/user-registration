@@ -25,7 +25,10 @@ export default defineConfig({
     coverage: {
       include: ["src/**/*.{ts,tsx}"],
       exclude: ["src/main.tsx", "src/api/**", "src/test/**"],
-      reporter: ["text", ["text", { file: "coverage.txt" }]],
+      reporter: [
+        ["text", { skipFull: true }],
+        ["text", { file: "coverage.txt", skipFull: true }],
+      ],
     },
   },
 });
