@@ -1,0 +1,4 @@
+{
+  "$schema": "./node_modules/knip/schema.json",
+  "ignore": ["frontend/src/api/schema.d.ts"]
+}
