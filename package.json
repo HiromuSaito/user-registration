@@ -13,6 +13,7 @@
     "format": "prettier --write .",
     "format:check": "prettier --check .",
     "test": "vitest run",
+    "test:coverage": "vitest run --coverage",
     "gen:types": "openapi-typescript frontend/src/api/schema.yaml -o frontend/src/api/schema.d.ts"
   },
   "dependencies": {
@@ -32,6 +33,7 @@
     "@types/react": "^19.3.0",
     "@types/react-dom": "^19.3.0",
     "@vitejs/plugin-react": "^6.3.0",
+    "@vitest/coverage-v8": "^5.1.0",
     "jsdom": "^31.0.1",
     "msw": "^3.0.5",
     "openapi-typescript": "^7.13.0",

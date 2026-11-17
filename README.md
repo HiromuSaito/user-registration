@@ -52,6 +52,13 @@ http://127.0.0.1:8000/ で起動します。
 - 型チェックとビルド: `pnpm run build`
 - CI と同じチェック: `pnpm run lint && pnpm run format:check && pnpm run test && pnpm run build`
 
+### カバレッジ
+
+変更でテストの漏れが出ていないかを確かめるために測る。CI では PR ごとにジョブの要約（Summary）に表を出す。数字合わせのテストを避けるため、基準の数字は設けない。
+
+- バックエンド: `uv run pytest --cov`
+- フロントエンド: `pnpm run test:coverage`
+
 ### API を変えたとき
 
 API のスキーマと、フロントで使う型を作り直します。作り直さないと、テストと CI が失敗します。
