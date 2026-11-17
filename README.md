@@ -47,10 +47,11 @@ http://127.0.0.1:8000/ で起動します。
 ### フロントエンド
 
 - リンター: `pnpm run lint`
+- 使っていないファイル・export・依存の検出: `pnpm run knip`
 - フォーマット: `pnpm run format`
 - テスト: `pnpm run test`
 - 型チェックとビルド: `pnpm run build`
-- CI と同じチェック: `pnpm run lint && pnpm run format:check && pnpm run test && pnpm run build`
+- CI と同じチェック: `pnpm run lint && pnpm run knip && pnpm run format:check && pnpm run test && pnpm run build`
 
 ### カバレッジ
 
