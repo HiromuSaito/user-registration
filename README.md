@@ -15,10 +15,13 @@
 ```bash
 uv sync
 pnpm install
+pnpm exec lefthook install
 cp .env.example .env
 docker compose up -d --wait
 uv run python manage.py migrate
 ```
+
+`pnpm exec lefthook install` で、コミットの前にリンターと整形のチェックを流す Git のフックを登録します。整っていなければコミットが止まるので、`uv run ruff format .` や `pnpm run format` で整えてからコミットし直します。フックは、pnpm の設定で、インストール時のスクリプトを動かさないため、手で登録します。
 
 ## 起動
 

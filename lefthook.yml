@@ -1,0 +1,20 @@
+# yaml-language-server: $schema=./node_modules/lefthook/schema.json
+# コミットの前に、速いチェックだけを流す。テストとビルドは遅いので CI に任せる
+pre-commit:
+  parallel: true
+  jobs:
+    - name: ruff-check
+      glob: "*.py"
+      # ファイルを直接渡すと、pyproject.toml の除外（マイグレーション）が効かないため --force-exclude を付ける
+      run: uv run ruff check --force-exclude {staged_files}
+    - name: ruff-format
+      glob: "*.py"
+      run: uv run ruff format --check --force-exclude {staged_files}
+    - name: oxlint
+      glob: "*.{ts,tsx}"
+      run: pnpm exec oxlint --deny-warnings {staged_files}
+    - name: prettier
+      run: pnpm exec prettier --check --ignore-unknown {staged_files}
+    - name: knip
+      glob: "*.{ts,tsx,json}"
+      run: pnpm run knip
