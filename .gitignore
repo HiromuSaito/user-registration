@@ -13,6 +13,7 @@ htmlcov/
 # Node
 node_modules/
 frontend/dist/
+frontend/coverage/
 
 # OS / Editor
 .DS_Store

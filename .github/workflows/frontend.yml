@@ -33,7 +33,14 @@ jobs:
           node-version-file: .nvmrc
           cache: pnpm
       - run: pnpm install --frozen-lockfile
-      - run: pnpm run test
+      - run: pnpm run test:coverage
+      # Vitest はマークダウンの表を出せないので、文字の表をコードの枠で囲んでジョブの要約に出す
+      - run: |
+          {
+            echo '```'
+            cat frontend/coverage/coverage.txt
+            echo '```'
+          } >> "$GITHUB_STEP_SUMMARY"
 
   frontend-build:
     runs-on: ubuntu-latest
