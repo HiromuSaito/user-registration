@@ -9,6 +9,7 @@ from django.db.models.lookups import Exact
 from user_registration.locations.models import Pref
 
 from .error_messages import EMAIL_TAKEN
+from .validators import validate_username
 
 
 class UserManager(DjangoUserManager):
@@ -28,7 +29,8 @@ class User(AbstractUser):
     # Django の日本語の訳は「半角英数、@/./+/-/_ を使用できます」だが、UnicodeUsernameValidator は
     # 日本語などの文字も通すため、実際の動きに合わせてエラーメッセージを書き直す。
     # バリデーターは AbstractUser がフィールドを作るときに組み込まれ、username_validator を
-    # 上書きするだけでは変わらないため、フィールドごと定義し直す。メッセージと説明以外は AbstractUser と同じ
+    # 上書きするだけでは変わらないため、フィールドごと定義し直す。
+    # 3 文字以上の確かめもここに置き、モデルから作る登録画面・管理画面・API のどれでも効くようにする
     username = models.CharField(
         "ユーザー名",
         max_length=150,
@@ -36,7 +38,8 @@ class User(AbstractUser):
         validators=[
             UnicodeUsernameValidator(
                 message="ユーザー名には、文字、数字、@/./+/-/_ だけを使えます。"
-            )
+            ),
+            validate_username,
         ],
         error_messages={"unique": "同じユーザー名が既に登録済みです。"},
     )

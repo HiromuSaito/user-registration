@@ -5,10 +5,10 @@ from rest_framework import serializers
 from user_registration.accounts.error_messages import EMAIL_TAKEN, required_message
 from user_registration.accounts.models import User
 from user_registration.accounts.validators import (
+    USERNAME_TOO_SHORT,
     normalize_email,
     normalize_tel,
     validate_tel,
-    validate_username,
 )
 
 INVALID_CHOICE = forms.ModelChoiceField.default_error_messages["invalid_choice"]
@@ -28,12 +28,14 @@ class UserCreateSerializer(serializers.ModelSerializer):
         model = User
         fields = ["username", "email", "password", "tel", "pref"]
         extra_kwargs = {
+            # DRF はモデルの MinLengthValidator を自身の min_length に置き換えて既定の文を出すため、モデルと同じ文にする
+            "username": {"error_messages": {"min_length": USERNAME_TOO_SHORT}},
             "pref": {
                 "error_messages": {
                     "does_not_exist": INVALID_CHOICE,
                     "incorrect_type": INVALID_CHOICE,
                 }
-            }
+            },
         }
 
     def __init__(self, *args, **kwargs):
@@ -41,10 +43,6 @@ class UserCreateSerializer(serializers.ModelSerializer):
         for field in self.fields.values():
             message = required_message(field.label)
             field.error_messages.update(required=message, blank=message, null=message)
-
-    def validate_username(self, value):
-        validate_username(value)
-        return value
 
     def validate_email(self, value):
         email = normalize_email(value)

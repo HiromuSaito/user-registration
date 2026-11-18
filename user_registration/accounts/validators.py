@@ -1,4 +1,4 @@
-"""フォームとシリアライザで共通の入力ルール。
+"""モデル・フォーム・シリアライザで使う入力ルール。
 
 フロントの検証も同じルールにそろえているので、変えるときはフロントも直す。
 DB を見るもの（メールの重複）はここに置かない。
@@ -11,11 +11,11 @@ from django.core.validators import MinLengthValidator, RegexValidator
 from email_validator import EmailNotValidError
 from email_validator import validate_email as validate_email_format
 
+USERNAME_MIN_LENGTH = 3
+USERNAME_TOO_SHORT = f"ユーザー名は{USERNAME_MIN_LENGTH}文字以上で入力してください。"
+
 # 使える文字は AbstractUser の UnicodeUsernameValidator が確かめる
-validate_username = MinLengthValidator(
-    3,
-    message="ユーザー名は%(limit_value)d文字以上で入力してください。",
-)
+validate_username = MinLengthValidator(USERNAME_MIN_LENGTH, message=USERNAME_TOO_SHORT)
 
 # \d や str.isdigit() は全角数字なども通すので、半角の 0〜9 だけを [0-9] で確かめる
 validate_tel = RegexValidator(
