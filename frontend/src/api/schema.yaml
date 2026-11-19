@@ -70,6 +70,7 @@ components:
           title: ユーザー名
           pattern: ^[\w.@+-]+$
           maxLength: 150
+          minLength: 3
         email:
           type: string
           title: メールアドレス
@@ -93,7 +94,7 @@ components:
       properties:
         username:
           type: string
-          minLength: 1
+          minLength: 3
           title: ユーザー名
           pattern: ^[\w.@+-]+$
           maxLength: 150

@@ -1,11 +1,14 @@
 from django.contrib import admin
 from django.contrib.auth.admin import UserAdmin as DjangoUserAdmin
 
+from .forms import UserAdminChangeForm, UserAdminCreationForm
 from .models import User
 
 
 @admin.register(User)
 class UserAdmin(DjangoUserAdmin):
+    add_form = UserAdminCreationForm
+    form = UserAdminChangeForm
     # 詳細の画面: 標準の項目に、追加した tel と pref を足す
     fieldsets = (
         *DjangoUserAdmin.fieldsets,
