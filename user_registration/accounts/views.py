@@ -1,8 +1,12 @@
+import logging
+
 from django.db import IntegrityError, transaction
 from django.shortcuts import redirect, render
 
 from .error_messages import SIGNUP_FAILED
 from .forms import SignupForm
+
+logger = logging.getLogger(__name__)
 
 SIGNUP_COMPLETED_SESSION_KEY = "signup_completed"
 
@@ -17,6 +21,8 @@ def signup(request):
                 with transaction.atomic():
                     form.save()
             except IntegrityError:
+                # 例外の内容には入力されたメールアドレスなどが含まれるため、ログには載せない
+                logger.warning("ユーザー登録に失敗しました。")
                 form.add_error(None, SIGNUP_FAILED)
             else:
                 request.session[SIGNUP_COMPLETED_SESSION_KEY] = True
