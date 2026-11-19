@@ -1,3 +1,5 @@
+import logging
+
 from django.db import IntegrityError, transaction
 from drf_spectacular.utils import OpenApiResponse, extend_schema
 from rest_framework import status
@@ -9,6 +11,8 @@ from rest_framework.settings import api_settings
 from user_registration.accounts.error_messages import SIGNUP_FAILED
 
 from .serializers import UserCreateSerializer
+
+logger = logging.getLogger(__name__)
 
 
 @extend_schema(
@@ -34,6 +38,8 @@ def user_create(request):
         with transaction.atomic():
             serializer.save()
     except IntegrityError:
+        # 例外の内容には入力されたメールアドレスなどが含まれるため、ログには載せない
+        logger.warning("ユーザー登録に失敗しました。")
         return Response(
             {api_settings.NON_FIELD_ERRORS_KEY: [SIGNUP_FAILED]},
             status=status.HTTP_400_BAD_REQUEST,

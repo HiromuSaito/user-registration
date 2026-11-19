@@ -52,7 +52,7 @@ def test_field_errors_are_summarized_at_top(client):
 
 
 @pytest.mark.django_db
-def test_integrity_error_is_shown_as_form_error(client):
+def test_integrity_error_is_shown_as_form_error(client, caplog):
     # 検証のあと保存までの間に同じメールで登録された状況を、保存時の例外で再現する
     with mock.patch(
         "user_registration.accounts.forms.SignupForm.save", side_effect=IntegrityError
@@ -62,6 +62,7 @@ def test_integrity_error_is_shown_as_form_error(client):
     save.assert_called_once()
     assert response.status_code == 200
     assert "登録できませんでした。" in response.content.decode()
+    assert "ユーザー登録に失敗しました。" in caplog.text
 
 
 @pytest.mark.django_db
