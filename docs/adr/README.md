@@ -8,3 +8,4 @@
 - [0004. 画面と API のビューは関数ベースで書く](0004-write-views-as-functions.md)
 - [0005. React の画面は Django から配信する](0005-serve-react-from-django.md)
 - [0006. SPA を普段の入口にし、MPA と HTML の形と CSS を共通にする](0006-make-spa-the-main-entry-and-share-markup-with-mpa.md)
+- [0007. API の型は OpenAPI のスキーマから生成し、スキーマと型をコミットする](0007-generate-api-types-from-openapi-schema.md)
