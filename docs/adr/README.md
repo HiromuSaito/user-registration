@@ -7,3 +7,4 @@
 - [0003. API は Django REST Framework で作る](0003-build-api-with-django-rest-framework.md)
 - [0004. 画面と API のビューは関数ベースで書く](0004-write-views-as-functions.md)
 - [0005. React の画面は Django から配信する](0005-serve-react-from-django.md)
+- [0006. SPA を普段の入口にし、MPA と HTML の形と CSS を共通にする](0006-make-spa-the-main-entry-and-share-markup-with-mpa.md)
