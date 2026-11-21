@@ -2,7 +2,7 @@ import { Link, Navigate, useLocation } from "react-router";
 
 export const SignupCompletePage = () => {
   const location = useLocation();
-  // 印は登録に成功して移ってくるときにだけ渡すので、印がなければ直接開かれた
+  // registered は登録に成功して遷移するときだけ渡すので、なければ直接開かれた
   if (!location.state?.registered) {
     return <Navigate to="/signup/" replace />;
   }

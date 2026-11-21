@@ -1,6 +1,6 @@
 peerDependencyRules:
   allowedVersions:
-    # openapi-typescript は TypeScript 5 を指定しているが、TypeScript 6 で型を生成できることを確かめた。
+    # openapi-typescript は TypeScript 5 を指定しているが、TypeScript 6 でも型を生成できる。
     # TypeScript 7 は openapi-typescript が使う API を持たないため、プロジェクトは 6 を使っている
     openapi-typescript>typescript: "6"
 

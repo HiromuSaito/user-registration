@@ -14,10 +14,10 @@ from email_validator import validate_email as validate_email_format
 USERNAME_MIN_LENGTH = 3
 USERNAME_TOO_SHORT = f"ユーザー名は{USERNAME_MIN_LENGTH}文字以上で入力してください。"
 
-# 使える文字は AbstractUser の UnicodeUsernameValidator が確かめる
+# 使える文字は AbstractUser の UnicodeUsernameValidator が検証する
 validate_username = MinLengthValidator(USERNAME_MIN_LENGTH, message=USERNAME_TOO_SHORT)
 
-# \d や str.isdigit() は全角数字なども通すので、半角の 0〜9 だけを [0-9] で確かめる
+# \d や str.isdigit() は全角数字なども通すので、半角の 0〜9 だけを [0-9] で検証する
 validate_tel = RegexValidator(
     r"^[0-9]+\Z",
     message="電話番号は数字のみで入力してください。",

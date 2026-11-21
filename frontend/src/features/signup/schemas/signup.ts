@@ -24,7 +24,7 @@ export const signupSchema = z.object({
   email: z
     .string()
     .min(1, requiredMessage("メールアドレス"))
-    // サーバーの email-validator と同じ判定はできないので、基本の形だけ確かめ、細かい違反はサーバーに任せる
+    // サーバーの email-validator と同じ判定はできないので、基本の形式だけを検証し、細かい違反はサーバーに任せる
     .regex(
       /^[^\s@]+@[^\s@]+\.[^\s@]+$/,
       "メールアドレスの形式が正しくありません。",
@@ -41,7 +41,7 @@ export const signupSchema = z.object({
     .regex(/[0-9]/, "パスワードには数字を1文字以上含めてください。"),
   tel: z
     .string()
-    // サーバーは全角の数字を半角に直して受け付けるので、ここでも直してから確かめる
+    // サーバーは全角の数字を半角に直して受け付けるので、ここでも半角に変換してから検証する
     .transform((value) => value.normalize("NFKC"))
     .refine(
       (value) => value === "" || /^[0-9]+$/.test(value),

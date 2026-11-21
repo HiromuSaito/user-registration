@@ -21,7 +21,7 @@ def test_system_check_passes():
     assert issues == []
 
 
-# makemigrations は適用済みのマイグレーションとの食い違いも DB に問い合わせて確かめるため、DB を使う
+# makemigrations は適用済みのマイグレーションとの食い違いも DB に問い合わせてチェックするため、DB を使う
 @pytest.mark.django_db
 def test_no_pending_migrations():
     out = StringIO()

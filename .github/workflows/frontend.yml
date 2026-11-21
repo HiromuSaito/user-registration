@@ -35,7 +35,7 @@ jobs:
           cache: pnpm
       - run: pnpm install --frozen-lockfile
       - run: pnpm run test:coverage
-      # Vitest はマークダウンの表を出せないので、文字の表をコードの枠で囲んでジョブの要約に出す
+      # Vitest はマークダウンの表を出せないので、テキストの表をコードブロックで囲んでジョブの要約に出す
       - run: |
           {
             echo '```'

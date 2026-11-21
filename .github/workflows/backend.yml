@@ -35,7 +35,7 @@ jobs:
           POSTGRES_PASSWORD: ci-only-not-secret
         ports:
           - 5432:5432
-        # 初回の準備の間は、TCP では受け付けない一時的なサーバーが動く。-h を付けずにソケットで確かめると、準備が終わる前に通ってしまう
+        # 初回の準備の間は、TCP では受け付けない一時的なサーバーが動く。-h を付けずにソケットでチェックすると、準備が終わる前に通ってしまう
         options: >-
           --health-cmd "pg_isready -h 127.0.0.1 -U user_registration -d user_registration"
           --health-interval 2s
@@ -69,6 +69,6 @@ jobs:
           enable-cache: true
       - run: uv sync --locked
       # 設定の読み込みに必須の値を .env.example からそろえる。PostgreSQL は立てない。
-      # DB につながらないと、適用済みのマイグレーションとの矛盾を確かめられないという警告が出る。CI の DB は毎回空で確かめる中身がないため、気にしなくてよい
+      # DB に接続しないと、適用済みのマイグレーションとの矛盾をチェックできないという警告が出るが、CI の DB は毎回空なので無視してよい
       - run: cp .env.example .env
       - run: uv run python manage.py makemigrations --check --dry-run

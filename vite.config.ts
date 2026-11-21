@@ -6,7 +6,7 @@ import { defineConfig } from "vitest/config";
 export default defineConfig({
   plugins: [react()],
   root: "frontend",
-  // Django の STATIC_URL と合わせる。ビルドしたファイルは Django の静的ファイルとして配信される
+  // Django の STATIC_URL と合わせる
   base: "/static/",
   resolve: { tsconfigPaths: true },
   build: {

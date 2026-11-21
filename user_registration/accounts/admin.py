@@ -9,7 +9,6 @@ from .models import User
 class UserAdmin(DjangoUserAdmin):
     add_form = UserAdminCreationForm
     form = UserAdminChangeForm
-    # 詳細の画面: 標準の項目に、追加した tel と pref を足す
     fieldsets = (
         *DjangoUserAdmin.fieldsets,
         ("連絡先と地域", {"fields": ("tel", "pref")}),

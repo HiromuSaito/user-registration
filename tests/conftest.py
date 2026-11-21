@@ -4,7 +4,7 @@ from django_vite.core.asset_loader import DjangoViteAssetLoader
 
 def _reload_django_vite():
     # django-vite は設定を起動時に 1 回だけ読んで使い回すため、settings を書き換えたら
-    # 作り直させる。django-vite 自身のテスト（tests/conftest.py）と同じやり方
+    # インスタンスを作り直す。django-vite のリポジトリの tests/conftest.py と同じやり方
     DjangoViteAssetLoader._instance = None
     DjangoViteAssetLoader.instance()
 

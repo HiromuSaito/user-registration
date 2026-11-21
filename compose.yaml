@@ -5,14 +5,14 @@ services:
       POSTGRES_DB: ${POSTGRES_DB:?}
       POSTGRES_USER: ${POSTGRES_USER:?}
       POSTGRES_PASSWORD: ${POSTGRES_PASSWORD:?}
-    # Docker が公開したポートは OS のファイアウォールを通らずに開くため、同じマシンからだけつなげるようにする
+    # Docker が公開したポートは OS のファイアウォールを通らずに開くため、同じマシンからだけ接続できるようにする
     ports:
       - "127.0.0.1:${POSTGRES_PORT:?}:5432"
     # 18 からデータは /var/lib/postgresql/18/docker に置かれる。17 以前の /var/lib/postgresql/data に付けると、データが残らない
     volumes:
       - postgres-data:/var/lib/postgresql
     healthcheck:
-      # 初回の準備の間は、TCP では受け付けない一時的なサーバーが動く。-h を付けずにソケットで確かめると、準備が終わる前に通ってしまう
+      # 初回の準備の間は、TCP では受け付けない一時的なサーバーが動く。-h を付けずにソケットでチェックすると、準備が終わる前に通ってしまう
       test: ["CMD-SHELL", "pg_isready -h 127.0.0.1 -U $${POSTGRES_USER} -d $${POSTGRES_DB}"]
       interval: 2s
       timeout: 5s

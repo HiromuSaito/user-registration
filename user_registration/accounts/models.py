@@ -30,7 +30,7 @@ class User(AbstractUser):
     # 日本語などの文字も通すため、実際の動きに合わせてエラーメッセージを書き直す。
     # バリデーターは AbstractUser がフィールドを作るときに組み込まれ、username_validator を
     # 上書きするだけでは変わらないため、フィールドごと定義し直す。
-    # 3 文字以上の確かめもここに置き、モデルから作る登録画面・管理画面・API のどれでも効くようにする
+    # 3 文字以上のバリデーションもここに置き、モデルから作る登録画面・管理画面・API のどれでも効くようにする
     username = models.CharField(
         "ユーザー名",
         max_length=150,
@@ -44,7 +44,7 @@ class User(AbstractUser):
         error_messages={"unique": "同じユーザー名が既に登録済みです。"},
     )
     email = models.EmailField("メールアドレス")
-    # 要件で null=True が指定されているため DJ001 を止める。空は None に統一する
+    # 未入力を空文字ではなく NULL で表すため DJ001 を止める。空は None に統一する
     tel = models.CharField("電話番号", max_length=20, null=True, blank=True)  # noqa: DJ001
     pref = models.ForeignKey(Pref, on_delete=models.PROTECT, verbose_name="都道府県")
 

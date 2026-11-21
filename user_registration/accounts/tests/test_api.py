@@ -20,7 +20,7 @@ VALID_DATA = {
 }
 
 
-# 回数の制限はキャッシュに数えるため、テストどうしで数が持ち越されないようにする
+# スロットリングの回数はキャッシュに記録されるため、テストごとにクリアして持ち越さない
 @pytest.fixture(autouse=True)
 def clear_throttle_cache():
     cache.clear()

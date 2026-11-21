@@ -8,8 +8,8 @@ from .models import User
 from .validators import normalize_email, normalize_tel, validate_tel
 
 
-# 全角の数字を半角に直してから確かめることと、email-validator での確かめと正規化は、モデルのフィールドの
-# 検証ではできないため、登録画面と管理画面のフォームでこのクラスを共有して、同じルールにする
+# 全角数字の半角への変換と、email-validator による検証・正規化は、モデルのフィールドの検証ではできないため、
+# 登録画面と管理画面のフォームでこのクラスを共有する
 class UserInputCleanMixin:
     def clean_email(self):
         return normalize_email(self.cleaned_data["email"])
@@ -59,7 +59,7 @@ class SignupForm(UserInputCleanMixin, forms.ModelForm):
         return user
 
 
-# 管理画面では、Django が一意制約を自分自身を除いて確かめるので、メールの重複はここでは確かめない
+# 管理画面では、Django が一意制約を自分自身を除いて検証するので、メールの重複チェックはここではしない
 class UserAdminCreationForm(UserInputCleanMixin, AdminUserCreationForm):
     class Meta(AdminUserCreationForm.Meta):
         model = User

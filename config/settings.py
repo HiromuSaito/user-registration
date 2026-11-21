@@ -117,7 +117,7 @@ DATABASES = {
 # Password validation
 # https://docs.djangoproject.com/en/5.2/ref/settings/#auth-password-validators
 
-# フロントでも同じ判定ができるよう、要件のルールだけを置く。
+# フロントでも同じ判定ができるルールだけを置く。
 # よくあるパスワードやユーザー名との類似の判定はフロントで再現できないため入れない
 AUTH_PASSWORD_VALIDATORS = [
     {

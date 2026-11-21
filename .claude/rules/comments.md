@@ -19,7 +19,7 @@ if "pref" in extra_fields and not isinstance(extra_fields["pref"], Pref):
 ```
 
 ```python
-# \d や str.isdigit() は全角数字なども通すので、半角の 0〜9 だけを [0-9] で確かめる
+# \d や str.isdigit() は全角数字なども通すので、半角の 0〜9 だけを [0-9] で検証する
 if not re.fullmatch(r"[0-9]+", value):
 ```
 
@@ -35,7 +35,7 @@ users = User.objects.select_related("pref")
 `# noqa` や `# type: ignore` には、止めてよい理由を必ず書く。理由がないと、後から読む人は外してよいのか判断できない。
 
 ```python
-# 要件で null=True が指定されているため DJ001 を止める。空は None に統一する
+# 未入力を空文字ではなく NULL で表すため DJ001 を止める。空は None に統一する
 tel = models.CharField(max_length=20, null=True, blank=True)  # noqa: DJ001
 ```
 

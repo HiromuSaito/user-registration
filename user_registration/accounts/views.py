@@ -33,7 +33,6 @@ def signup(request):
 
 
 def signup_complete(request):
-    # 完了画面に直接来た人や再読み込みした人は、登録画面に戻す
     if not request.session.pop(SIGNUP_COMPLETED_SESSION_KEY, False):
         return redirect("accounts:signup")
     return render(request, "accounts/signup_complete.html")
