@@ -8,7 +8,8 @@
   },
   "scripts": {
     "dev": "vite",
-    "build": "tsc -b && vite build",
+    "typecheck": "tsc -b",
+    "build": "pnpm run typecheck && vite build",
     "lint": "oxlint --deny-warnings",
     "knip": "knip",
     "format": "prettier --write .",
