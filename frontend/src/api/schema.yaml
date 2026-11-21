@@ -47,6 +47,8 @@ paths:
           description: ''
         '400':
           description: 入力の誤り。項目ごとにエラーのメッセージの配列を返す
+        '429':
+          description: 登録の回数が多すぎる。Retry-After のヘッダーで、次に試せるまでの秒数を返す
 components:
   schemas:
     Pref:

@@ -13,10 +13,13 @@ import {
   type SignupFormValues,
   type SignupInput,
 } from "@/features/signup/schemas/signup";
+import { ApiError } from "@/lib/api-client";
 import { setServerErrors } from "@/utils/form-errors";
 
 const SIGNUP_FAILED =
   "登録できませんでした。入力内容を確かめて、もう一度お試しください。";
+const TOO_MANY_SIGNUPS =
+  "登録の回数が多すぎます。しばらく時間をおいてから、もう一度お試しください。";
 const PREFS_LOAD_FAILED =
   "都道府県を読み込めませんでした。ページを再読み込みしてください。";
 
@@ -60,6 +63,10 @@ export const SignupForm = ({ onSuccess }: SignupFormProps) => {
     try {
       await createUser(input);
     } catch (error) {
+      if (error instanceof ApiError && error.status === 429) {
+        setError("root.server", { message: TOO_MANY_SIGNUPS });
+        return;
+      }
       setServerErrors(
         error,
         setError,
