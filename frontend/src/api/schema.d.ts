@@ -124,6 +124,13 @@ export interface operations {
                 };
                 content?: never;
             };
+            /** @description 登録の回数が多すぎる。Retry-After のヘッダーで、次に試せるまでの秒数を返す */
+            429: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content?: never;
+            };
         };
     };
 }

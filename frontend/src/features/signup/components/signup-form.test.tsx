@@ -210,6 +210,28 @@ describe("SignupForm", () => {
     ).toBeInTheDocument();
   });
 
+  test("登録の回数の制限にかかったら、まとめに時間をおくよう促す文を出す", async () => {
+    server.use(
+      http.post("/api/users/", () =>
+        HttpResponse.json(
+          { detail: "Request was throttled." },
+          { status: 429, headers: { "Retry-After": "3600" } },
+        ),
+      ),
+    );
+    const { user, onSuccess } = await renderForm();
+    await fillValid(user);
+
+    await user.click(screen.getByRole("button", { name: "登録する" }));
+
+    expect(
+      await screen.findByText(
+        "登録の回数が多すぎます。しばらく時間をおいてから、もう一度お試しください。",
+      ),
+    ).toBeInTheDocument();
+    expect(onSuccess).not.toHaveBeenCalled();
+  });
+
   test("登録できなかったら、まとめにやり直しを促す文を出す", async () => {
     server.use(
       http.post("/api/users/", () => new HttpResponse(null, { status: 403 })),

@@ -1,10 +1,12 @@
 from unittest import mock
 
 import pytest
+from django.core.cache import cache
 from django.db import IntegrityError
 from django.urls import reverse
 from rest_framework.test import APIClient
 
+from user_registration.accounts.api.throttles import SignupRateThrottle
 from user_registration.accounts.models import User
 
 USER_CREATE_URL = reverse("accounts_api:user_create")
@@ -16,6 +18,12 @@ VALID_DATA = {
     "tel": "０９０１２３４",
     "pref": 13,
 }
+
+
+# 回数の制限はキャッシュに数えるため、テストどうしで数が持ち越されないようにする
+@pytest.fixture(autouse=True)
+def clear_throttle_cache():
+    cache.clear()
 
 
 @pytest.fixture
@@ -99,3 +107,15 @@ def test_csrf_token_in_header_is_accepted():
     response = post_json(csrf_client, VALID_DATA, HTTP_X_CSRFTOKEN=token)
 
     assert response.status_code == 201
+
+
+@pytest.mark.django_db
+def test_too_many_requests_returns_429(api_client):
+    for _ in range(SignupRateThrottle().num_requests):
+        assert post_json(api_client, {}).status_code == 400
+
+    response = post_json(api_client, VALID_DATA)
+
+    assert response.status_code == 429
+    assert "Retry-After" in response.headers
+    assert not User.objects.exists()
