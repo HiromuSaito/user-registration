@@ -13,7 +13,7 @@
 
 | レイヤー | 技術 |
 | --- | --- |
-| バックエンド | Django 5.2、Django REST Framework、drf-spectacular |
+| バックエンド | Python 3.10〜3.14、Django 5.2、Django REST Framework、drf-spectacular |
 | フロントエンド | Vite、React、React Router、React Hook Form、Zod |
 | 連携 | django-vite、OpenAPI のスキーマから生成した型 |
 | DB | PostgreSQL 18 |
@@ -66,9 +66,9 @@ user-registration/
 
 ### 前提条件
 
-- Python 3.10〜3.14
-- [uv](https://docs.astral.sh/uv/)
-- Node.js 26（`.nvmrc`）
+- macOS または Linux（WindowsではWSL2を想定）
+- [uv](https://docs.astral.sh/uv/)（Python は `.python-version` の版を uv が入れる）
+- [Node.js](https://nodejs.org/) 26（`.nvmrc`。nvm を使うなら `nvm install` でこの版が入る）
 - [pnpm](https://pnpm.io/) 12（`package.json` の `packageManager`）
 - [Docker](https://docs.docker.com/) と Docker Compose
 
